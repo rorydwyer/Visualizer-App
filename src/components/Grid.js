@@ -1,5 +1,5 @@
 import { useState, useEffect, createRef, useRef } from "react";
-// import Node from "./Node";
+import Menu from "./Menu";
 import { dijkstra, getNodesInShortestPathOrder } from "../algorithms/dijkstra";
 
 const Grid = () => {
@@ -18,12 +18,19 @@ const Grid = () => {
 
   // LifeCycle Hook
   useEffect(() => {
+    resetGrid();
+  }, []);
+
+  // RESET GRID
+  const resetGrid = () => {
+    nodeRefs.current.forEach((n) => n.current.classList.remove("node-shortest-path", "node-visited", "node-wall"));
+
     setGrid(
       Array(cols * rows)
         .fill({ id: 0, isVisited: false, isWall: false, distance: Infinity, previousNode: null, isStart: false, isEnd: false })
         .map((node, i) => ({ ...node, id: i, isStart: i === start, isEnd: i === end }))
     );
-  }, []);
+  };
 
   // HANDLE WALLS CLICKS
   const handleMouseDown = (id) => {
@@ -72,14 +79,7 @@ const Grid = () => {
 
   return (
     <div>
-      <button
-        className="border-2 border-blue-400 rounded p-3 m-3"
-        onClick={() => {
-          animateDijkstra();
-        }}
-      >
-        Start
-      </button>
+      <Menu onStart={animateDijkstra} onReset={resetGrid} />
       <div id="grid" className="flex flex-wrap max-w-screen-lg">
         {grid.map((n) => (
           <div
@@ -87,7 +87,7 @@ const Grid = () => {
             ref={nodeRefs.current[n.id]}
             className={`border border-black ${
               start === n.id ? "node-start" : end === n.id ? "node-end" : n.isWall ? "node-wall" : n.visited === true ? "node-visited" : ""
-            } id-${n.id}`}
+            }`}
             style={{ width: width, height: width }}
             onMouseDown={() => handleMouseDown(n.id)}
             onMouseEnter={(e) => handleMouseEnter(e, n.id)}

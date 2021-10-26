@@ -6,6 +6,10 @@
   background-color: coral;
 }
 
+.node-wall {
+  background-color: grey;
+}
+
 .node-shortest-path {
   background-color: blue;
 }
@@ -16,9 +20,6 @@
 
 .node-end {
   background-color: red;
-}
-.node-wall {
-  background-color: grey;
 }
 
 body {
