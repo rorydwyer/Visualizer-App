@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.node-visited {
+  background-color: coral;
+}
+
+.node-shortest-path {
+  background-color: blue;
+}
+
 .node-start {
   background-color: green;
 }
@@ -9,11 +17,6 @@
 .node-end {
   background-color: red;
 }
-
-.node-visited {
-  background-color: coral;
-}
-
 .node-wall {
   background-color: grey;
 }

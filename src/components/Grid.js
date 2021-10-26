@@ -11,7 +11,7 @@ const Grid = () => {
   const rows = 25;
   const width = 1024 / cols + "px";
   let start = 210; // ID of start
-  let end = 240; // ID of end
+  let end = 860; // ID of end
 
   const nodeRefs = useRef([]);
   nodeRefs.current = grid.map((el, i) => nodeRefs.current[i] ?? createRef());
@@ -31,9 +31,10 @@ const Grid = () => {
     setMouseIsPressed(true);
   };
 
-  const handleMouseEnter = (id) => {
-    if (!mouseIsPressed) return;
-    toggleWall(id);
+  const handleMouseEnter = (e, id) => {
+    if (mouseIsPressed) {
+      toggleWall(id);
+    }
   };
 
   const handleMouseUp = () => {
@@ -46,15 +47,25 @@ const Grid = () => {
     setGrid(grid);
   };
 
-  // HANDLE DIJKSTRA
+  // DIJKSTRA
   const animateDijkstra = () => {
-    console.log(grid);
     const visitedNodesInOrder = dijkstra(grid, grid[start], grid[end], cols);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(grid[end]);
+
     for (let i = 0; i < visitedNodesInOrder.length; i++) {
+      // Animate the visited nodes
       setTimeout(() => {
-        console.log(visitedNodesInOrder[i].id, nodeRefs.current[visitedNodesInOrder[i].id].current);
         nodeRefs.current[visitedNodesInOrder[i].id].current.classList.add("node-visited");
-        // node.classList.add("node-visited");
+
+        // Animate the shortest path
+        if (i === visitedNodesInOrder.length - 1) {
+          for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+            setTimeout(() => {
+              const node = nodesInShortestPathOrder[i];
+              nodeRefs.current[node.id].current.classList.add("node-shortest-path");
+            }, 50 * i);
+          }
+        }
       }, 10 * i);
     }
   };
@@ -79,7 +90,7 @@ const Grid = () => {
             } id-${n.id}`}
             style={{ width: width, height: width }}
             onMouseDown={() => handleMouseDown(n.id)}
-            onMouseEnter={() => handleMouseEnter(n.id)}
+            onMouseEnter={(e) => handleMouseEnter(e, n.id)}
             onMouseUp={() => handleMouseUp()}
           ></div>
         ))}

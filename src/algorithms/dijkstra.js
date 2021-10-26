@@ -32,7 +32,7 @@ function updateUnvisitedNeighbors(node, grid, width) {
 
   for (const n of unvisitedNeighbors) {
     n.distance = node.distance + 1;
-    // n.previousNode = node;
+    n.previousNode = node;
   }
 }
 
