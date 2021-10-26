@@ -4,9 +4,10 @@ import { getUnvisitedNeighbors } from "../algorithms/dijkstra";
 
 const Grid = () => {
   const [grid, setGrid] = useState([]);
+  const [mouseIsPressed, setMouseIsPressed] = useState(false);
 
-  const cols = 50;
-  const rows = 40;
+  const cols = 40;
+  const rows = 25;
   let start = 210; // ID of start
   let end = 240; // ID of end
 
@@ -15,10 +16,27 @@ const Grid = () => {
     // Create node list with id's acending
     setGrid(
       Array(cols * rows)
-        .fill({ id: 0, visited: false })
+        .fill({ id: 0, visited: false, isWall: false })
         .map((node, i) => ({ ...node, id: i }))
     );
   }, []);
+
+  // Handle Wall Key press
+  const handleMouseDown = (node) => {
+    grid[node].isWall = true;
+    setGrid([...grid]);
+    setMouseIsPressed(true);
+  };
+
+  const handleMouseEnter = (node) => {
+    if (!mouseIsPressed) return;
+    grid[node].isWall = true;
+    setGrid([...grid]);
+  };
+
+  const handleMouseUp = () => {
+    setMouseIsPressed(false);
+  };
 
   return (
     <div>
@@ -34,7 +52,16 @@ const Grid = () => {
       </button>
       <div id="grid" className="flex flex-wrap max-w-screen-lg">
         {grid.map((n) => (
-          <Node key={n.id} node={n} cols={cols} start={start} end={end} />
+          <Node
+            key={n.id}
+            node={n}
+            cols={cols}
+            start={start}
+            end={end}
+            onMouseDown={handleMouseDown}
+            onMouseEnter={handleMouseEnter}
+            onMouseUp={handleMouseUp}
+          />
         ))}
       </div>
     </div>

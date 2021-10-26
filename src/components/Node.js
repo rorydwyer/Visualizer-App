@@ -1,14 +1,17 @@
-const Node = ({ node, cols, start, end }) => {
+const Node = ({ node, cols, start, end, onMouseDown, onMouseEnter, onMouseUp }) => {
   const width = 1024 / cols + "px";
 
   return (
     <div
       id={node.id}
-      className={`border border-black ${start === node.id ? "node-start" : end === node.id ? "node-end" : ""} ${node.visited === true ? "visited" : ""}`}
       style={{ width: width, height: width }}
-    >
-      {node.visited ? "x" : ""}
-    </div>
+      className={`border border-black ${
+        start === node.id ? "node-start" : end === node.id ? "node-end" : node.isWall ? "node-wall" : node.visited === true ? "node-visited" : ""
+      }`}
+      onMouseDown={() => onMouseDown(node.id)}
+      onMouseEnter={() => onMouseEnter(node.id)}
+      onMouseUp={() => onMouseUp()}
+    ></div>
   );
 };
 

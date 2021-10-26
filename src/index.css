@@ -10,8 +10,12 @@
   background-color: red;
 }
 
-.visited {
+.node-visited {
   background-color: coral;
+}
+
+.node-wall {
+  background-color: grey;
 }
 
 body {
