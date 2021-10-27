@@ -150,7 +150,14 @@ function App() {
 
   return (
     <div className="App flex flex-col justify-center items-center p-4">
-      <Menu onStart={animateDijkstra} onReset={resetGrid} onResetPath={resetPath} />
+      <div className="flex items-baseline justify-between w-full max-w-5xl">
+        <h1 className="text-2xl font-bold border-b border-red-400">
+          <a href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm" rel="noreferrer" target="_blank">
+            Dijkstra's Algorithm
+          </a>
+        </h1>
+        <Menu onStart={animateDijkstra} onReset={resetGrid} onResetPath={resetPath} />
+      </div>
       <Grid
         grid={grid}
         nodeRefs={nodeRefs}

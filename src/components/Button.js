@@ -1,6 +1,6 @@
 const Button = ({ onClick, text }) => {
   return (
-    <button className="border-2 border-blue-400 rounded p-3 m-3" onClick={onClick}>
+    <button className="border border-red-400 rounded p-2 m-2" onClick={onClick}>
       {text}
     </button>
   );
