@@ -16,10 +16,12 @@
 
 .node-start {
   background-color: green;
+  cursor: pointer;
 }
 
 .node-end {
   background-color: red;
+  cursor: pointer;
 }
 
 body {
