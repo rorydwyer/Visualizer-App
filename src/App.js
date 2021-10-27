@@ -59,11 +59,11 @@ function App() {
   };
 
   // Mouse Up
-  const handleMouseUp = () => {
+  const handleMouseUp = (id) => {
     setMouseIsPressed(false);
 
     // Set the new location of the start or end node
-    if (changingStart) moveStart();
+    if (changingStart) moveStart(id);
     else if (changingEnd) moveEnd();
   };
 
@@ -84,16 +84,15 @@ function App() {
   };
 
   // HANDLE START/END CLICKS, WALL CLICKS
-  const moveStart = () => {
-    const newStart = nodeRefs.current.findIndex((n) => n.current.classList.contains("node-start"));
-
+  const moveStart = (id) => {
     // Remove the old start node
-    nodeRefs.current[newStart].current.classList.remove("node-wall");
     grid[start].isStart = false;
+    nodeRefs.current[id].current.classList.remove("node-wall");
 
     // Add the new start node
-    setStart(newStart);
+    setStart(id);
     grid[start].isStart = true;
+    grid[start].isWall = false;
     setGrid(grid);
 
     setChangingStart(false);
@@ -109,6 +108,7 @@ function App() {
     // Add the new end node
     setEnd(newEnd);
     grid[end].isEnd = true;
+    grid[end].isWall = false;
     setGrid(grid);
 
     setChangingEnd(false);

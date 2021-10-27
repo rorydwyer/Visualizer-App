@@ -12,7 +12,7 @@ const Grid = ({ grid, nodeRefs, start, end, width, handleMouseDown, handleMouseU
           onMouseDown={() => handleMouseDown(n.id)}
           onMouseEnter={() => handleMouseEnter(n.id)}
           onMouseLeave={() => handleMouseLeave(n.id)}
-          onMouseUp={() => handleMouseUp()}
+          onMouseUp={() => handleMouseUp(n.id)}
         ></div>
       ))}
     </div>

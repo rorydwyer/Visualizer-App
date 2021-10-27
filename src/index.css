@@ -3,24 +3,75 @@
 @tailwind utilities;
 
 .node-visited {
-  background-color: coral;
+  animation-name: visitedAnimation;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes visitedAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: #0852a6;
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: #0a96c9;
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: #0ac993;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #00b3b3;
+  }
 }
 
 .node-wall {
-  background-color: grey;
+  background-color: #014040 !important;
 }
 
 .node-shortest-path {
-  background-color: blue;
+  animation-name: shortestPath;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+  background-color: #e99d05;
+}
+
+@keyframes shortestPath {
+  0% {
+    transform: scale(0.6);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .node-start {
-  background-color: green;
+  background-color: #038c8c !important;
   cursor: pointer;
 }
 
 .node-end {
-  background-color: red;
+  background-color: #f25a38 !important;
   cursor: pointer;
 }
 
