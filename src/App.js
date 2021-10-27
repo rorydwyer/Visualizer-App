@@ -50,46 +50,48 @@ function App() {
   // Mouse Down
   const handleMouseDown = (id) => {
     if (animationRunning) return; // Prevent user from changing grid while animation is running
-
     setMouseIsPressed(true);
-    if (id === start) {
-      setChangingStart(true);
-    } else if (id === end) {
-      setChangingEnd(true);
-    } else toggleWall(id);
+
+    // Check where the user clicked
+    if (id === start) setChangingStart(true);
+    else if (id === end) setChangingEnd(true);
+    else toggleWall(id);
   };
 
   // Mouse Up
   const handleMouseUp = () => {
     setMouseIsPressed(false);
 
-    if (changingStart) {
-      moveStart();
-    } else if (changingEnd) {
-      moveEnd();
-    }
+    // Set the new location of the start or end node
+    if (changingStart) moveStart();
+    else if (changingEnd) moveEnd();
   };
 
   // Mouse Move
   const handleMouseEnter = (id) => {
     if (!mouseIsPressed) return;
 
-    if (changingStart) {
-      nodeRefs.current[id].current.classList.add("node-start");
-    } else toggleWall(id);
+    // Drag the start or end node, or toggle a wall
+    if (changingStart) nodeRefs.current[id].current.classList.add("node-start");
+    else if (changingEnd) nodeRefs.current[id].current.classList.add("node-end");
+    else toggleWall(id);
   };
 
   // Mouse Leave
   const handleMouseLeave = (id) => {
-    if (!changingStart) return;
-    nodeRefs.current[id].current.classList.remove("node-start");
+    if (changingStart) nodeRefs.current[id].current.classList.remove("node-start");
+    else if (changingEnd) nodeRefs.current[id].current.classList.remove("node-end");
   };
 
   // HANDLE START/END CLICKS, WALL CLICKS
   const moveStart = () => {
     const newStart = nodeRefs.current.findIndex((n) => n.current.classList.contains("node-start"));
+
+    // Remove the old start node
     nodeRefs.current[newStart].current.classList.remove("node-wall");
     grid[start].isStart = false;
+
+    // Add the new start node
     setStart(newStart);
     grid[start].isStart = true;
     setGrid(grid);
@@ -97,7 +99,20 @@ function App() {
     setChangingStart(false);
   };
 
-  const moveEnd = () => {};
+  const moveEnd = () => {
+    const newEnd = nodeRefs.current.findIndex((n) => n.current.classList.contains("node-end"));
+
+    // Remove the old end node
+    nodeRefs.current[newEnd].current.classList.remove("node-wall");
+    grid[end].isEnd = false;
+
+    // Add the new end node
+    setEnd(newEnd);
+    grid[end].isEnd = true;
+    setGrid(grid);
+
+    setChangingEnd(false);
+  };
 
   const toggleWall = (id) => {
     nodeRefs.current[id].current.classList.toggle("node-wall");
@@ -134,7 +149,7 @@ function App() {
   };
 
   return (
-    <div className="App flex flex-col justify-center items-center p-16">
+    <div className="App flex flex-col justify-center items-center p-4">
       <Menu onStart={animateDijkstra} onReset={resetGrid} onResetPath={resetPath} />
       <Grid
         grid={grid}
