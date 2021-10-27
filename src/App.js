@@ -122,8 +122,11 @@ function App() {
 
   // DIJKSTRA - Eventually change to use multiple algorithms
   const animateDijkstra = () => {
+    if (animationRunning) return;
+
     const visitedNodesInOrder = dijkstra(grid, grid[start], grid[end], cols);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(grid[end]);
+    resetPath();
     setAnimationRunning(true);
 
     for (let i = 0; i < visitedNodesInOrder.length; i++) {
