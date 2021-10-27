@@ -3,18 +3,16 @@ import Menu from "./Menu";
 import { dijkstra, getNodesInShortestPathOrder } from "../algorithms/dijkstra";
 
 const Grid = () => {
-  //   const [grid, setGrid] = useState([]);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
   const [changingStart, setChangingStart] = useState(false);
   const [animationRunning, setAnimationRunning] = useState(false);
   const [grid, setGrid] = useState([]);
   const [start, setStart] = useState(210);
+  const [end, setEnd] = useState(860);
 
   const cols = 40;
   const rows = 25;
   const width = 1024 / cols + "px";
-  // let start = 210; // ID of start
-  let end = 860; // ID of end
 
   const nodeRefs = useRef([]);
   nodeRefs.current = grid.map((el, i) => nodeRefs.current[i] ?? createRef());
@@ -34,6 +32,14 @@ const Grid = () => {
         .fill({ id: 0, isVisited: false, isWall: false, distance: Infinity, previousNode: null, isStart: false, isEnd: false })
         .map((node, i) => ({ ...node, id: i, isStart: i === start, isEnd: i === end }))
     );
+  };
+
+  // RESET WALLS
+  const resetPath = () => {
+    if (animationRunning) return;
+
+    nodeRefs.current.forEach((n) => n.current.classList.remove("node-shortest-path", "node-visited"));
+    setGrid(grid.map((node) => ({ ...node, isVisited: false, distance: Infinity, previousNode: null })));
   };
 
   // HANDLE CLICKS and DRAGGING
@@ -120,7 +126,7 @@ const Grid = () => {
 
   return (
     <div>
-      <Menu onStart={animateDijkstra} onReset={resetGrid} />
+      <Menu onStart={animateDijkstra} onReset={resetGrid} onResetPath={resetPath} />
       <div id="grid" className="flex flex-wrap max-w-screen-lg">
         {grid.map((n) => (
           <div
