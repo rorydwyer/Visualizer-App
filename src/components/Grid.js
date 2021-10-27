@@ -5,7 +5,7 @@ const Grid = ({ grid, nodeRefs, start, end, width, handleMouseDown, handleMouseU
         <div
           key={n.id}
           ref={nodeRefs.current[n.id]}
-          className={`border border-gray-300 ${
+          className={`border border-gray-100 ${
             start === n.id ? "node-start" : end === n.id ? "node-end" : n.isWall ? "node-wall" : n.visited === true ? "node-visited" : ""
           }`}
           style={{ width: width, height: width }}

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 .node-visited {
+  border-color: #33c3ad;
   animation-name: visitedAnimation;
   animation-duration: 1s;
   animation-timing-function: ease-out;
@@ -16,44 +17,44 @@
 @keyframes visitedAnimation {
   0% {
     transform: scale(0.3);
-    background-color: #0852a6;
+    background-color: #2eb39f;
     border-radius: 100%;
   }
 
   50% {
-    background-color: #0a96c9;
+    background-color: #37ceb7;
   }
 
   75% {
     transform: scale(1.2);
-    background-color: #0ac993;
+    background-color: #4fffe4;
   }
 
   100% {
     transform: scale(1);
-    background-color: #00b3b3;
+    background-color: #43d8c2;
   }
 }
 
 .node-wall {
-  background-color: #014040 !important;
+  background-color: #401717 !important;
 }
 
 .node-shortest-path {
   animation-name: shortestPath;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
   animation-timing-function: ease-out;
   animation-delay: 0;
   animation-direction: alternate;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   animation-play-state: running;
-  background-color: #e99d05;
+  background-color: #ffe175;
 }
 
 @keyframes shortestPath {
   0% {
-    transform: scale(0.6);
+    transform: scale(0.8);
   }
 
   50% {
@@ -66,12 +67,12 @@
 }
 
 .node-start {
-  background-color: #038c8c !important;
+  background-color: #9dff69 !important;
   cursor: pointer;
 }
 
 .node-end {
-  background-color: #f25a38 !important;
+  background-color: #ff5c5c !important;
   cursor: pointer;
 }
 
